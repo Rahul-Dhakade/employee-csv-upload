@@ -6,16 +6,20 @@ import com.example.demo.repository.EmployeesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
+@Transactional
 public class EmployeeService {
 
     @Autowired
     private EmployeesRepository employeesRepository;
 
     public Employees getEmployee(Long id){
-        return employeesRepository.findOne(id);
+        Optional<Employees> employees = employeesRepository.findById(id);
+        return employees.get();
     }
 
     public List<Employees> getEmployees(){
@@ -28,7 +32,7 @@ public class EmployeeService {
     }
 
     public Employees updateEmployees(EmployeeDTO employeeDTO){
-        Employees employee = employeesRepository.findOne(employeeDTO.getId());
+        Employees employee = getEmployee(employeeDTO.getId());
         employee.setEmail(employeeDTO.getEmail());
         employee.setFirstName(employeeDTO.getFirstName());
         employee.setLastName(employeeDTO.getLastName());
@@ -38,6 +42,5 @@ public class EmployeeService {
     public void deleteEmployees(Long id){
         employeesRepository.deleteById(id);
     }
-
 
 }
