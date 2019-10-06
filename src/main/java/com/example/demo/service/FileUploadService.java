@@ -18,6 +18,7 @@ public class FileUploadService {
     private EmployeesRepository employeesRepository;
 
     public void parseAndSave(FileUploadDTO file){
+        log.info("parse csv file and save data into DB");
         try {
             String line;
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader( file.getFile().getInputStream()) );
@@ -27,7 +28,7 @@ public class FileUploadService {
                 employeesRepository.save(new Employees(emps[0],emps[1],emps[2]));
             }
         }catch (Exception e){
-            e.printStackTrace();
+            log.error("error occurred while storing data to DB");
         }
     }
 }
