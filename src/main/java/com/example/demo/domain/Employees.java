@@ -1,8 +1,6 @@
 package com.example.demo.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
@@ -11,7 +9,8 @@ public class Employees implements Serializable {
     private static Long serialVersionUID = 1L;
 
     @Id
-    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id",updatable = false,nullable = false)
     private Long id;
 
     @Column(name = "first_name")
@@ -23,6 +22,13 @@ public class Employees implements Serializable {
     @Column(name = "email")
     private String email;
 
+    public Employees(){}
+
+    public Employees(String firstName, String lastName, String email) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+    }
 
     public Long getId() {
         return id;
