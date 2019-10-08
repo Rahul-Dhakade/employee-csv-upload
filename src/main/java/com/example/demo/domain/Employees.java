@@ -13,7 +13,7 @@ public class Employees implements Serializable {
     @Column(name = "id",updatable = false,nullable = false)
     private Long id;
 
-    @Column(name = "first_name")
+    @Column(name = "first_name", updatable = false)
     private String firstName;
 
     @Column(name = "last_name")
